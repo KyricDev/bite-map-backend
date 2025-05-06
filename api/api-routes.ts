@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { searchRoutes } from "./search_place";
+import { searchRoutes } from "./foursquare_routes";
 
 
 const apiRoutes = Router().use('/api', searchRoutes)
