@@ -4,6 +4,7 @@ import { apiRoutes } from './api/api-routes';
 import { OpenAIService } from './services/openai_service';
 import { FourSquareURI } from './constants/uri_constants';
 import { FourSquareService } from './services/foursquare_service';
+import { ParsedLocationDescription } from './models/parsed_location_description_model';
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.get('/test', async (req, res) => {
     //     description: response!,
     // })
 
-    const result = FourSquareURI.placeSearchURI({description: response!});
+    const result = FourSquareURI.placeSearchURI({description: response.data as ParsedLocationDescription});
     res.json(result);
 })
 

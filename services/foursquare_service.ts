@@ -1,5 +1,6 @@
 import { FourSquareURI } from "../constants/uri_constants";
-import { ParsedLocationDescription } from "./openai_service";
+import { ParsedLocationDescription } from "../models/parsed_location_description_model";
+import { ResponseModel } from "../models/response_model";
 
 abstract class FourSquareService {
     static async searchDiningLocations({
@@ -10,7 +11,7 @@ abstract class FourSquareService {
         description : ParsedLocationDescription, 
         latitude? : number, 
         longitude?: number,
-    }) {
+    }) : Promise<ResponseModel> {
         const response = await fetch(FourSquareURI.placeSearchURI({
             description: description,
         }),{
@@ -21,7 +22,11 @@ abstract class FourSquareService {
             }) 
         } )
 
-        return await response.json();
+
+        const responseModel = new ResponseModel();
+        responseModel.data = await response.json();
+        responseModel.isError = false;
+        return responseModel;
     }
 }
 

@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
 import OpenAI from 'openai';
-import {z} from 'zod';
-import { zodResponseFormat} from "openai/helpers/zod";
+import { z } from 'zod';
+import { zodResponseFormat } from "openai/helpers/zod";
+import { ResponseModel } from "../models/response_model";
 
 const LocationQueryResponseFormat = z.object({
     query: z.string({
         description: 'venue name, category, contact information, cuisine/taste',
     }),
     radius: z.number({
-        description: 'search distance in meters. Can be 0 to 100000. Can infer from words like \"near\" or \"far\". -1 if can\'t infer'
+        description: 'search distance in meters. Can be 0 to 100000. Can infer from words like near or far where 5000 is considered near. -1 by default'
     }),
     categories: z.string({
         description:'cuisine type/origin',
@@ -83,23 +84,9 @@ const LocationQueryResponseFormat = z.object({
 //     }
 //   }
 // }
-  
-
-export interface ParsedLocationDescription {
-    query: string,
-    radius: number,
-    categories: string,
-    minPrice: number,
-    maxPrice: number,
-    // openAt: string,
-    dow: number,
-    time: string,
-    openNow: boolean,
-    near: string,
-}
 
 abstract class OpenAIService {
-    static async parseLocationDescription(req: Request, res: Response): Promise<ParsedLocationDescription | null> {
+    static async parseLocationDescription(req: Request, res: Response): Promise<ResponseModel> {
         const openAI = new OpenAI();
         const response = await openAI.beta.chat.completions.parse({
             model: 'gpt-4.1-mini',
@@ -110,13 +97,24 @@ abstract class OpenAIService {
                 },
                 {
                     role: 'user',
-                    content: 'pizza',
+                    content: 'fast food fried chicken that is still open in Manila',
                 },
             ],
             response_format: zodResponseFormat(LocationQueryResponseFormat, "place_request")
         });
 
-        return response.choices[0].message.parsed;
+        const refusal = response.choices[0].message.refusal;
+        if (refusal) {
+            const responseModel = new ResponseModel();
+            responseModel.data = refusal;
+            responseModel.isError = true;
+            return responseModel;
+        }
+
+        const responseModel = new ResponseModel();
+        responseModel.data = response.choices[0].message.parsed;
+        responseModel.isError = false;
+        return responseModel;
     }
 }
 

@@ -1,4 +1,4 @@
-import { ParsedLocationDescription } from "../services/openai_service";
+import { ParsedLocationDescription } from "../models/parsed_location_description_model";
 
 abstract class FourSquareURI {
     static placeSearchURI({
@@ -30,8 +30,7 @@ abstract class FourSquareURI {
         let hasOpenAt = false;
         const dow = description.dow;
         const time = description.time;
-        if (
-            dow >= 1 &&
+        if (dow >= 1 &&
             dow <= 7 && 
             time !== '') {
                 hasOpenAt = true;
