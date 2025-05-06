@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { searchRoutes } from "./foursquare_routes";
+import { executeRoutes } from "./execute-route";
 
 
-const apiRoutes = Router().use('/api', searchRoutes)
+const apiRoutes = Router().use('/api', executeRoutes)
 
 export {
     apiRoutes

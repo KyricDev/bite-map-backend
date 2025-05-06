@@ -10,10 +10,10 @@ abstract class FourSquareURI {
         latitude?: number,
         longitude?: number,  
     }): string {
-        let uri = 'https://api.foursquare.com/v3/places/search?';
+        let uri = 'https://api.foursquare.com/v3/places/search?fields=rating,distance,description,hours,name,photos,price,website';
 
         const query = description.query;
-        if (query !== '') uri += `query=${query}`;
+        if (query !== '') uri += `&query=${query}`;
         
         const radius = description.radius;
         if (radius !== -1) uri += `&radius=${radius}`;

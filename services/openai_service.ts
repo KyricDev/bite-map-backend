@@ -6,7 +6,7 @@ import { ResponseModel } from "../models/response_model";
 
 const LocationQueryResponseFormat = z.object({
     query: z.string({
-        description: 'venue name, category, contact information, cuisine/taste',
+        description: 'venue name, category, contact information, type of cuisine, origin',
     }),
     radius: z.number({
         description: 'search distance in meters. Can be 0 to 100000. Can infer from words like near or far where 5000 is considered near. -1 by default'
@@ -93,11 +93,11 @@ abstract class OpenAIService {
             messages: [
                 {
                     role: 'system',
-                    content: "parse location information"
+                    content: 'parse location information',
                 },
                 {
                     role: 'user',
-                    content: 'fast food fried chicken that is still open in Manila',
+                    content: req.body.query,
                 },
             ],
             response_format: zodResponseFormat(LocationQueryResponseFormat, "place_request")

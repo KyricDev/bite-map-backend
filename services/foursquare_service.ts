@@ -14,6 +14,8 @@ abstract class FourSquareService {
     }) : Promise<ResponseModel> {
         const response = await fetch(FourSquareURI.placeSearchURI({
             description: description,
+            latitude: latitude,
+            longitude: longitude,
         }),{
             method: 'GET',
             headers: new Headers({
