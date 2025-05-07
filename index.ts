@@ -23,12 +23,21 @@ app.use(json());
 
 app.use(apiRoutes);
 
-app.get('/test', async (req, res) => {
-    res.json({
-        'message': 'working'
-    });
+app.get('/', async (req, res) => {
+    res.json('This is the backend for Bite Map')
 })
 
 app.listen(process.env.PORT, () => {
     console.log(`listening ${process.env.PORT}`)
 })
+
+if (process.env.NODE_ENV !== 'development') {
+    const minutes = 14;
+    const keepAliveURI = 'https://bite-map-backend.onrender.com/'
+    
+    setInterval(() => {
+        fetch(keepAliveURI).then(() => console.log('keep alive'))
+    },
+        minutes * 10000
+    )
+}
