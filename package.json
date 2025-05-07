@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx --env-file=.env --watch index.ts"
+    "start": "tsx --env-file=.env --watch index.ts",
+    "docker": "tsx index.ts"
   },
   "author": "",
   "license": "ISC",

@@ -14,13 +14,9 @@ app.use(json());
 app.use(apiRoutes);
 
 app.get('/test', async (req, res) => {
-    const response = await OpenAIService.parseLocationDescription(req, res);
-    // const result = await FourSquareService.searchDiningLocations({
-    //     description: response!,
-    // })
-
-    const result = FourSquareURI.placeSearchURI({description: response.data as ParsedLocationDescription});
-    res.json(result);
+    res.json({
+        'message': 'working'
+    });
 })
 
 app.listen(process.env.PORT, () => {
