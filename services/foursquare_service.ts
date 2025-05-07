@@ -1,4 +1,4 @@
-import { FourSquareURI } from "../constants/uri_constants";
+import { FourSquareURI } from "../helpers/foursquare_uri";
 import { ParsedLocationDescription } from "../models/parsed_location_description_model";
 import { ResponseModel } from "../models/response_model";
 
