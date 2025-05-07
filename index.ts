@@ -8,7 +8,12 @@ import { ParsedLocationDescription } from './models/parsed_location_description_
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://bite-map.vercel.app',
+        'http://localhost:5173',
+    ]
+}));
 app.use(json());
 
 app.use(apiRoutes);
