@@ -10,7 +10,21 @@ abstract class FourSquareURI {
         latitude?: number,
         longitude?: number,  
     }): string {
-        let uri = 'https://api.foursquare.com/v3/places/search?fields=rating,distance,description,hours,name,photos,price,website,categories,tips,location&categories=13000';
+        const fields = [
+            'rating',
+            'distance',
+            'description',
+            'hours',
+            'name',
+            'photos',
+            'price',
+            'website',
+            'categories',
+            'tips',
+            'location',
+            'fsq_id'
+        ];
+        let uri = `https://api.foursquare.com/v3/places/search?fields=${fields.join(',')}&categories=13000`;
 
         const query = description.query;
         if (query !== '') uri += `&query=${query}`;
