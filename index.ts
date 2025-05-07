@@ -34,10 +34,10 @@ app.listen(process.env.PORT, () => {
 if (process.env.NODE_ENV !== 'development') {
     const minutes = 14;
     const keepAliveURI = 'https://bite-map-backend.onrender.com/'
-    
+
     setInterval(() => {
         fetch(keepAliveURI).then(() => console.log('keep alive'))
     },
-        minutes * 10000
+        minutes * 1000 * 60
     )
 }
