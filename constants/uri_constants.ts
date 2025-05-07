@@ -14,9 +14,6 @@ abstract class FourSquareURI {
 
         const query = description.query;
         if (query !== '') uri += `&query=${query}`;
-        
-        const radius = description.radius;
-        if (radius !== -1) uri += `&radius=${radius}`;
 
         // const categories = description.categories;
         // if (categories !== '') uri += `&categories=${categories}`;
@@ -41,11 +38,28 @@ abstract class FourSquareURI {
         if (!hasOpenAt && openNow) uri += `&open_now=${openNow}`;
 
         const near = description.near;
-        if (near !== '') uri += `&near=${near}`;
+        let hasNear = false;
+        if (near !== '') {
+            hasNear = true;
+            uri += `&near=${near}`;
+        }
 
-        if (latitude && longitude) {
+        let hasCoordinates = false;
+        if (latitude && 
+            longitude && 
+            !hasNear) {
+            hasCoordinates = true;
             uri += `&ll=${latitude},${longitude}`;
         }
+        
+        const radius = description.radius;
+        if (radius !== -1 && 
+            !hasNear &&
+            !hasCoordinates) {
+                uri += `&radius=${radius}`;
+        }
+
+
         console.log(uri);
 
         return uri;
