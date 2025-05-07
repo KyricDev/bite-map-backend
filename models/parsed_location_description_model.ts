@@ -9,4 +9,5 @@
     time: string;
     openNow: boolean;
     near: string;
+    isDiningRelated: boolean;
 }

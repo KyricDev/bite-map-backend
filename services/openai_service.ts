@@ -5,8 +5,11 @@ import { zodResponseFormat } from "openai/helpers/zod";
 import { ResponseModel } from "../models/response_model";
 
 const LocationQueryResponseFormat = z.object({
+    isDiningRelated: z.boolean({
+        description: 'whether the query relates to dining or not',
+    }),
     query: z.string({
-        description: 'venue name, category, contact information, type of cuisine, origin',
+        description: 'query relating only to food. venue name, category, contact information, type of cuisine, food origin or nationality',
     }),
     radius: z.number({
         description: 'search distance in meters. Can be 0 to 100000. Can infer from words like near or far where 5000 is considered near. -1 by default'
