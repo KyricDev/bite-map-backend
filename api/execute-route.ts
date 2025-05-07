@@ -3,6 +3,7 @@ import { FourSquareService } from "../services/foursquare_service";
 import { OpenAIService } from "../services/openai_service";
 import { ParsedLocationDescription } from "../models/parsed_location_description_model";
 import { ResponseModel } from "../models/response_model";
+import { Logger } from "../helpers/logger";
 
 const executeRoutes = [
     Router().post('/execute', async (req, res) => {
@@ -10,6 +11,8 @@ const executeRoutes = [
 
         const parseResponse = await OpenAIService.parseLocationDescription(req, res);
         const locationDescription = parseResponse.data as ParsedLocationDescription;
+
+        Logger.print(locationDescription);
 
         if (!locationDescription.isDiningRelated) {
             const response = new ResponseModel();

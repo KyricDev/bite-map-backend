@@ -1,3 +1,4 @@
+import { Logger } from "../helpers/logger";
 import { ParsedLocationDescription } from "../models/parsed_location_description_model";
 
 abstract class FourSquareURI {
@@ -67,14 +68,12 @@ abstract class FourSquareURI {
         }
         
         const radius = description.radius;
-        if (radius !== -1 && 
-            !hasNear &&
-            !hasCoordinates) {
+
+        if (radius !== -1 && !hasNear) {
                 uri += `&radius=${radius}`;
         }
 
-
-        console.log(uri);
+        Logger.print(uri);
 
         return uri;
     }
