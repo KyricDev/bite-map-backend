@@ -67,9 +67,7 @@ abstract class FourSquareURI {
         }
         
         const radius = description.radius;
-        if (radius !== -1 && 
-            !hasNear &&
-            !hasCoordinates) {
+        if (radius !== -1 && !hasNear) {
                 uri += `&radius=${radius}`;
         }
 
