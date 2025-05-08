@@ -60,11 +60,11 @@ You can try the live application [here](https://bite-map.vercel.app/).
     Used to parse user input and return location data.
 
     Accepts a json object with the following format:
-    ```json
+    ```
         {
             query: string,
-            latitude: number,
-            longitude: number
+            latitude?: number,
+            longitude?: number
         }
     ```
 
