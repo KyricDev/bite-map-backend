@@ -1,5 +1,5 @@
-import { Logger } from "../helpers/logger";
-import { ParsedLocationDescription } from "../models/parsed_location_description_model";
+import { Logger } from "./logger";
+import { ParsedLocationDescription } from "../models/parsed-location-description-model";
 
 abstract class FourSquareURI {
     static placeSearchURI({

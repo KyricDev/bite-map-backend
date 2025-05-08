@@ -4,6 +4,8 @@
     categories: string;
     minPrice: number;
     maxPrice: number;
+    minRating: number;
+    maxRating: number;
     // openAt: string,
     dow: number;
     time: string;

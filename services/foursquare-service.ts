@@ -1,6 +1,6 @@
-import { FourSquareURI } from "../helpers/foursquare_uri";
-import { ParsedLocationDescription } from "../models/parsed_location_description_model";
-import { ResponseModel } from "../models/response_model";
+import { FourSquareURI } from "../helpers/foursquare-uri";
+import { ParsedLocationDescription } from "../models/parsed-location-description-model";
+import { ResponseModel } from "../models/response-model";
 
 abstract class FourSquareService {
     static async searchDiningLocations({

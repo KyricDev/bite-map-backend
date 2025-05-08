@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { FourSquareService } from "../services/foursquare_service";
-import { OpenAIService } from "../services/openai_service";
-import { ParsedLocationDescription } from "../models/parsed_location_description_model";
-import { ResponseModel } from "../models/response_model";
+import { FourSquareService } from "../services/foursquare-service";
+import { OpenAIService } from "../services/openai-service";
+import { ParsedLocationDescription } from "../models/parsed-location-description-model";
+import { ResponseModel } from "../models/response-model";
 import { Logger } from "../helpers/logger";
 
 const executeRoutes = [

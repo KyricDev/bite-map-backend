@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import OpenAI from 'openai';
 import { z } from 'zod';
 import { zodResponseFormat } from "openai/helpers/zod";
-import { ResponseModel } from "../models/response_model";
+import { ResponseModel } from "../models/response-model";
 
 const LocationQueryResponseFormat = z.object({
     isDiningRelated: z.boolean({
@@ -22,6 +22,12 @@ const LocationQueryResponseFormat = z.object({
     }),
     maxPrice: z.number({
         description: 'maximum price from 1 (most affordable) to 4 (most expensive). 0 if not specfied',
+    }),
+    minRating: z.number({
+        description: 'minimum rating from 0 to 10. -1 if not specified.',
+    }),
+    masxRating: z.number({
+        description: 'maximum rating from 0 to 10. -1 if not specified.',
     }),
     // openAt: z.string({
     //     description: 'opening hours in DOWTHHMM format where DOW is the day number 1-7 (Monday = 1, Sunday = 7) and time is in 24 hour format',
