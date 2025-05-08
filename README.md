@@ -154,4 +154,10 @@ You can try the live application [here](https://bite-map.vercel.app/).
 
 ## Limitations
 
-While it is possible to leave the coordinates empty, the api will have no choice but to use the server location as the search area. This can be circumvented if the query has an explicit location entered which the ai model can extrapolate from.
+1. Empty coordinates
+
+    While it is possible to leave the coordinates empty, the api will have no choice but to use the server location as the search area. This can be circumvented if the query has an explicit location entered which the ai model can extrapolate from.
+
+2. Removal of ```open_now``` query parameters when requesting to Foursquare Places API
+
+    The model can properly differentiate whether the user asks for venues currently open, however, the returned results are wildly irrelevant to the original query when fed to the Foursquare API. The query parameter is now ommitted to preserve the relevancy of the results. 
