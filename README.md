@@ -1,5 +1,4 @@
 # BITE MAP
-# About
 
 Bite map is a restaurant finding application that can infer from natural human language.
 
@@ -9,7 +8,7 @@ This is the backend code for the application. You can find the frontend code [he
 
 You can try the live application [here](https://bite-map.vercel.app/).
 
-# Running Locally
+## Running Locally
 
 1. Clone the repository.
 ```
@@ -54,7 +53,7 @@ You can try the live application [here](https://bite-map.vercel.app/).
 
         2. Navigate to [http://localhost:3000](http://localhost:3000).
 
-# Routes
+## Routes
 
 1. ```POST /api/execute```
     
@@ -153,6 +152,6 @@ You can try the live application [here](https://bite-map.vercel.app/).
         }
     ```
 
-# Limitations
+## Limitations
 
 While it is possible to leave the coordinates empty, the api will have no choice but to use the server location as the search area. This can be circumvented if the query has an explicit location entered which the ai model can extrapolate from.
