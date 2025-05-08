@@ -63,8 +63,8 @@ You can try the live application [here](https://bite-map.vercel.app/).
     ```json
         {
             query: string,
-            latitude?: number,
-            longitude?: number
+            latitude: number,
+            longitude: number
         }
     ```
 
