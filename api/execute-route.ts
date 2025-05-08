@@ -4,6 +4,7 @@ import { OpenAIService } from "../services/openai-service";
 import { ParsedLocationDescription } from "../models/parsed-location-description-model";
 import { ResponseModel } from "../models/response-model";
 import { Logger } from "../helpers/logger";
+import { Restaurant } from "../models/restaurant-model";
 
 const executeRoutes = [
     Router().post('/execute', async (req, res) => {
@@ -25,11 +26,24 @@ const executeRoutes = [
                 return;
             }
 
-            const searchResponse = await FourSquareService.searchDiningLocations({
+            let searchResponse = await FourSquareService.searchDiningLocations({
                 description: parseResponse.data as ParsedLocationDescription,
                 latitude: body.latitude,
                 longitude: body.longitude,
             })
+
+
+            const minRating = locationDescription.minRating;
+            const maxRating = locationDescription.maxRating;
+
+            if (minRating !== 0 || maxRating !== 10){
+                const restaurants = ((searchResponse.data as any).results as Restaurant[])
+                    .filter( (restaurant) => {
+                        return restaurant.rating >= minRating && restaurant.rating <= maxRating;
+                    });
+
+                (searchResponse.data as any).results = restaurants;
+            }
 
             res.json(searchResponse)
             return;
