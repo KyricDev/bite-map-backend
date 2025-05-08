@@ -89,7 +89,7 @@ const LocationQueryResponseFormat = z.object({
 // }
 
 abstract class OpenAIService {
-    static async parseLocationDescription(req: Request, res: Response): Promise<ResponseModel> {
+    static async parseLocationDescription(query: string): Promise<ResponseModel> {
         const openAI = new OpenAI();
         const response = await openAI.beta.chat.completions.parse({
             model: 'gpt-4.1-mini',
@@ -100,7 +100,7 @@ abstract class OpenAIService {
                 },
                 {
                     role: 'user',
-                    content: req.body.query,
+                    content: query,
                 },
             ],
             response_format: zodResponseFormat(LocationQueryResponseFormat, "place_request")
@@ -109,7 +109,9 @@ abstract class OpenAIService {
         const refusal = response.choices[0].message.refusal;
         if (refusal) {
             const responseModel = new ResponseModel();
-            responseModel.data = refusal;
+            responseModel.data = {
+                'message': refusal,
+            };
             responseModel.isError = true;
             return responseModel;
         }

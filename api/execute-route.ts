@@ -7,30 +7,44 @@ import { Logger } from "../helpers/logger";
 
 const executeRoutes = [
     Router().post('/execute', async (req, res) => {
-        const body = req.body;
+        try {
+            const body = req.body;
 
-        const parseResponse = await OpenAIService.parseLocationDescription(req, res);
-        const locationDescription = parseResponse.data as ParsedLocationDescription;
+            const parseResponse = await OpenAIService.parseLocationDescription(body.query);
+            const locationDescription = parseResponse.data as ParsedLocationDescription;
 
-        Logger.print(locationDescription);
+            Logger.print(locationDescription);
 
-        if (!locationDescription.isDiningRelated) {
+            if (!locationDescription.isDiningRelated) {
+                const response = new ResponseModel();
+                response.isError = true;
+                response.data = {
+                    'message': 'Query is not related to food, restaurants, or dining',
+                }
+                res.json(response)
+                return;
+            }
+
+            const searchResponse = await FourSquareService.searchDiningLocations({
+                description: parseResponse.data as ParsedLocationDescription,
+                latitude: body.latitude,
+                longitude: body.longitude,
+            })
+
+            res.json(searchResponse)
+            return;
+        }
+        catch (error) {
+            Logger.print(error);
+
             const response = new ResponseModel();
             response.isError = true;
             response.data = {
-                'message': 'Query is not related to dining',
+                'message': 'An error has occurred.'
             }
-            res.json(response)
+            res.json(response);
             return;
-        }
-
-        const searchResponse = await FourSquareService.searchDiningLocations({
-            description: parseResponse.data as ParsedLocationDescription,
-            latitude: body.latitude,
-            longitude: body.longitude,
-        })
-
-        res.json(searchResponse)
+        }   
     })
 ];
 
