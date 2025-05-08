@@ -9,7 +9,7 @@ const LocationQueryResponseFormat = z.object({
         description: 'whether the query relates to dining or not',
     }),
     query: z.string({
-        description: 'query relating only to food. venue name, category, contact information, type of cuisine, food origin or nationality',
+        description: 'query relating only to food. venue name, category, contact information, type of cuisine, food origin or nationality. Do not include words such as restaurant, shop, joint, etc.',
     }),
     radius: z.number({
         description: 'search distance in meters. Can be 0 to 100000. Can infer from words like near or far where 5000 is considered near. -1 by default'
@@ -18,10 +18,10 @@ const LocationQueryResponseFormat = z.object({
         description:'cuisine type/origin',
     }),
     minPrice: z.number({
-        description: 'minimum price from 1 (most affordable) to 4 (most expensive). 0 if not specfied',
+        description: 'minimum price from 1 (most affordable) to 4 (most expensive). 0 if not specfied. Cannot have the same value as maxPrice.',
     }),
     maxPrice: z.number({
-        description: 'maximum price from 1 (most affordable) to 4 (most expensive). 0 if not specfied',
+        description: 'maximum price from 1 (most affordable) to 4 (most expensive). 0 if not specfied. Cannot have the same value as minPrice.',
     }),
     minRating: z.number({
         description: 'minimum rating from 0 to 10. 0 if not specified.',

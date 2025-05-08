@@ -49,8 +49,8 @@ abstract class FourSquareURI {
                 uri += `&open_at=${dow}T${time}`;
             }
 
-        const openNow = description.openNow;
-        if (!hasOpenAt && openNow) uri += `&open_now=${openNow}`;
+        // const openNow = description.openNow;
+        // if (!hasOpenAt && openNow) uri += `&open_now=${openNow}`;
 
         const near = description.near;
         let hasNear = false;
